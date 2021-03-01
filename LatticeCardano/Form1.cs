@@ -89,8 +89,11 @@ namespace LatticeCardano
             {
                 LatticeCardano latticeCardano = new LatticeCardano(trackBar1.Value, pathToFileOpen, pathToFileSave, pathToKey);
                 latticeCardano.InitCart(Takematrix());
-                latticeCardano.EncryptionFile();
-                latticeCardano.WriteKey();
+                if (latticeCardano.IsCheckedCart())
+                {
+                    latticeCardano.EncryptionFile();
+                    latticeCardano.WriteKey();
+                }
             }
             else
             {

@@ -37,6 +37,20 @@ namespace LatticeCardano
             this.fileNameKey = fileNameKey;
         }
 
+        public bool IsCheckedCart()
+        {
+            for(int i = 0; i < Size; i++)
+            {
+                for(int j = 0; j < Size; j++)
+                {
+                    if (cartNormal[i,j]+cartLeft[i,j] + cartRight[i,j]+cartDown[i,j]>1)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
 
         public void InitCart(int[,] matrix)
         {
