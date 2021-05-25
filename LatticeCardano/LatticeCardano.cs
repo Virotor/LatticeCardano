@@ -45,7 +45,7 @@ namespace LatticeCardano
                 {
                     if (cartNormal[i,j]+cartLeft[i,j] + cartRight[i,j]+cartDown[i,j]>1)
                     {
-                        return false;
+                        throw new Exception("Решётка пересекается и не сможет дать верный результат");
                     }
                 }
             }
@@ -225,6 +225,38 @@ namespace LatticeCardano
                     countOfReadBytes += sizeBuffer;
                 }
             }
+        }
+        
+        public Dictionary<string,List<long>> TakeFrequencySymbol()
+        {
+            Dictionary<string, List<long>> resultFrequnce = new Dictionary<string, List< long>>();
+            dynamic fileNames = new string[]{ fileName, fileNameOut };
+            foreach(var file in fileNames)
+            {
+                List<long> ps = new List<long>();
+                for (int i = 0; i < char.MaxValue; i++)
+                {
+                    ps.Add(0);
+                }
+                using (FileStream fileStream = File.OpenRead(file))
+                {
+                    long sizeFile = fileStream.Length;
+                    long countOfReadBytes = 0;
+                    int sizeBuffer = Size * Size;
+                    while (countOfReadBytes < sizeFile)
+                    {
+                        byte[] buffer = new byte[sizeBuffer];
+                        fileStream.Read(buffer, 0, sizeBuffer);
+                        foreach(var symbol in buffer)
+                        {
+                            ps[Convert.ToInt32(symbol)]++;
+                        }
+                        countOfReadBytes += sizeBuffer;
+                    }
+                }
+                resultFrequnce.Add(file, ps);
+            }
+            return resultFrequnce;
         }
 
         private byte[] TransformToNormal(byte[] inSequnce, int size)

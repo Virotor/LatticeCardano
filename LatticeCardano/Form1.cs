@@ -85,26 +85,56 @@ namespace LatticeCardano
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (choise.Checked)
+            LatticeCardano latticeCardano;
+            try
             {
-                LatticeCardano latticeCardano = new LatticeCardano(trackBar1.Value, pathToFileOpen, pathToFileSave, pathToKey);
-                latticeCardano.InitCart(Takematrix());
-                if (latticeCardano.IsCheckedCart())
+                label1.Text = "";
+                if (choise.Checked)
                 {
-                    latticeCardano.EncryptionFile();
-                    latticeCardano.WriteKey();
+                    latticeCardano = new LatticeCardano(trackBar1.Value, pathToFileOpen, pathToFileSave, pathToKey);
+                    latticeCardano.InitCart(Takematrix());
+                    if (latticeCardano.IsCheckedCart())
+                    {
+                        latticeCardano.EncryptionFile();
+                        latticeCardano.WriteKey();
+                    }
                 }
+                else
+                {
+                    latticeCardano = new LatticeCardano(pathToFileOpen, pathToFileSave, pathToKey);
+                    latticeCardano.ReadKey();
+                    latticeCardano.DecipherFile();
+                }
+                var resultForCharts = latticeCardano.TakeFrequencySymbol();
+
+                ChartFrequence(resultForCharts);
             }
-            else
+            catch (Exception ex)
             {
-                LatticeCardano latticeCardano = new LatticeCardano(pathToFileOpen, pathToFileSave, pathToKey);
-                latticeCardano.ReadKey();
-                latticeCardano.DecipherFile();
-                //latticeCardano.InitCart(new int[,] { { 1, 1, 0, 0 }, { 1, 1, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 } });
-                //latticeCardano.WriteKey();
+                label1.Text = ex.Message;
             }
         }
 
+
+        private void ChartFrequence(Dictionary<string, List<long>> frequence) {
+
+            encryptionFile.Legends[0].Enabled = false;
+            originalFile.Legends[0].Enabled = false;
+            var _ = frequence[frequence.Keys.Last()];
+            encryptionFile.Series[0].Points.Clear();
+            for(int i = 0; i < 255; i++)
+            {
+                encryptionFile.Series[0].Points.AddXY(Convert.ToChar(i).ToString(), _[i]);
+            }
+
+
+             _ = frequence[frequence.Keys.First()];
+            originalFile.Series[0].Points.Clear();
+            for (int i = 0; i < 255; i++)
+            {
+                originalFile.Series[0].Points.AddXY(Convert.ToChar(i).ToString(), _[i]);
+            }
+        }
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             valueSize.Text = trackBar1.Value.ToString();
@@ -118,13 +148,15 @@ namespace LatticeCardano
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             dataGridView1.RowCount = trackBar1.Value;
-           // dataGridView1.Rows.Add(trackBar1.Value);
-            
-
         }
 
         private int[,] Takematrix()
         {
+            bool isEmpty = true;
+            if(dataGridView1.Rows.Count < 1)
+            {
+                throw new Exception("Решётка не задана, задайте, пожалуйста, решётку");
+            }
             var res = new int[trackBar1.Value, trackBar1.Value];
             for(int i=0; i < trackBar1.Value; i++)
             {
@@ -133,8 +165,13 @@ namespace LatticeCardano
                     if (dataGridView1.Rows[i].Cells[j].Value!=null)
                     {
                         res[i, j] = 1;
+                        isEmpty = false;
                     }
                 }
+            }
+            if (isEmpty)
+            {
+                throw new Exception("Решётка не задана");
             }
             return res;
         }

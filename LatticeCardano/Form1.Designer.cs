@@ -28,6 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.fileNameOpen = new System.Windows.Forms.TextBox();
             this.nameKey = new System.Windows.Forms.TextBox();
             this.nameSave = new System.Windows.Forms.TextBox();
@@ -38,13 +44,18 @@
             this.start = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.valueSize = new System.Windows.Forms.Label();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.originalFile = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.encryptionFile = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label1 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.originalFile)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.encryptionFile)).BeginInit();
             this.SuspendLayout();
             // 
             // fileNameOpen
@@ -128,7 +139,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 659);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(849, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1280, 22);
             this.statusStrip1.TabIndex = 8;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -136,6 +147,11 @@
             // 
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
             // trackBar1
             // 
@@ -157,20 +173,12 @@
             this.valueSize.TabIndex = 10;
             this.valueSize.Text = "5";
             // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
-            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(22, 174);
@@ -179,14 +187,61 @@
             this.dataGridView1.RowHeadersWidth = 20;
             this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dataGridView1.ShowEditingIcon = false;
-            this.dataGridView1.Size = new System.Drawing.Size(450, 450);
+            this.dataGridView1.Size = new System.Drawing.Size(441, 450);
             this.dataGridView1.TabIndex = 11;
+            // 
+            // originalFile
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.originalFile.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.originalFile.Legends.Add(legend1);
+            this.originalFile.Location = new System.Drawing.Point(523, 174);
+            this.originalFile.Name = "originalFile";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.String;
+            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            this.originalFile.Series.Add(series1);
+            this.originalFile.Size = new System.Drawing.Size(745, 212);
+            this.originalFile.TabIndex = 12;
+            this.originalFile.Text = "chart1";
+            // 
+            // encryptionFile
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.encryptionFile.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.encryptionFile.Legends.Add(legend2);
+            this.encryptionFile.Location = new System.Drawing.Point(523, 405);
+            this.encryptionFile.Name = "encryptionFile";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.String;
+            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            this.encryptionFile.Series.Add(series2);
+            this.encryptionFile.Size = new System.Drawing.Size(745, 219);
+            this.encryptionFile.TabIndex = 12;
+            this.encryptionFile.Text = "chart1";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(488, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 13);
+            this.label1.TabIndex = 13;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(849, 681);
+            this.ClientSize = new System.Drawing.Size(1280, 681);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.encryptionFile);
+            this.Controls.Add(this.originalFile);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.valueSize);
             this.Controls.Add(this.trackBar1);
@@ -205,6 +260,8 @@
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.originalFile)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.encryptionFile)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,6 +283,9 @@
         private System.Windows.Forms.Label valueSize;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart originalFile;
+        private System.Windows.Forms.DataVisualization.Charting.Chart encryptionFile;
+        private System.Windows.Forms.Label label1;
     }
 }
 
